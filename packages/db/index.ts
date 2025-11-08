@@ -4,7 +4,18 @@ import { neonConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import ws from "ws";
 import { PrismaClient } from "./generated/client";
-import { keys } from "./keys";
+import { createEnv } from "@t3-oss/env-nextjs";
+import { z } from "zod";
+
+const keys = () =>
+  createEnv({
+    server: {
+      DATABASE_URL: z.url(),
+    },
+    runtimeEnv: {
+      DATABASE_URL: process.env.DATABASE_URL,
+    },
+  });
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
