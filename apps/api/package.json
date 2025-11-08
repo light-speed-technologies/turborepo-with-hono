@@ -1,7 +1,7 @@
 {
   "name": "api",
   "scripts": {
-    "dev": "srvx",
+    "dev": "tsx watch src/index.ts",
     "postinstall": "pnpm dlx prisma generate",
     "prebuild": "pnpm dlx prisma generate",
     "postbuild": "pnpm dlx prisma generate"
