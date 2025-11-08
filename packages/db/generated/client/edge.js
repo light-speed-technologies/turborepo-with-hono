@@ -126,6 +126,7 @@ const config = {
       "fromEnvVar": null
     },
     "config": {
+      "moduleFormat": "esm",
       "engineType": "library"
     },
     "binaryTargets": [
@@ -159,8 +160,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/client\"\n}\n\ndatasource db {\n  provider     = \"postgresql\"\n  url          = env(\"DATABASE_URL\")\n  relationMode = \"prisma\"\n}\n\n// This is a stub model.\n// Delete it and add your own Prisma models.\nmodel Page {\n  id   Int    @id @default(autoincrement())\n  name String\n}\n",
-  "inlineSchemaHash": "d26ed2dc0e7264c385b30983cf91b97eb011e4c098c2803b360de9f3096dfb05",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider     = \"prisma-client-js\"\n  output       = \"../generated/client\"\n  moduleFormat = \"esm\"\n}\n\ndatasource db {\n  provider     = \"postgresql\"\n  url          = env(\"DATABASE_URL\")\n  relationMode = \"prisma\"\n}\n\n// This is a stub model.\n// Delete it and add your own Prisma models.\nmodel Page {\n  id   Int    @id @default(autoincrement())\n  name String\n}\n",
+  "inlineSchemaHash": "7340c7a55e7439f0f978cfde62652627f743f82d9c08fe0439f70b26ff7b8d36",
   "copyEngine": true
 }
 config.dirname = '/'

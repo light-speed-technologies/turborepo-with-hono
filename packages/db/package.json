@@ -4,6 +4,9 @@
   "type": "module",
   "main": "./index.ts",
   "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
   "scripts": {
     "analyze": "prisma generate --no-hints --schema=./prisma/schema.prisma",
     "build": "prisma generate --no-hints --schema=./prisma/schema.prisma",

@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { CONSTANT } from "@repo/constants";
 import { database } from "@repo/db";
 
 const app = new Hono();
