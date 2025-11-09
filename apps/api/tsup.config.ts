@@ -1,5 +1,4 @@
 import { defineConfig } from "tsup";
-import { inferInternalPackages } from "./build.js";
 
 export default defineConfig({
   entry: ["src/index.ts"],
@@ -12,5 +11,4 @@ export default defineConfig({
   sourcemap: true,
   minify: false,
   bundle: true,
-  noExternal: inferInternalPackages(process.cwd()),
 });
