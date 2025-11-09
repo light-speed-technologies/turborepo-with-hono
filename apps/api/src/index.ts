@@ -1,20 +1,22 @@
 import { Hono } from "hono";
-import { database } from "./db";
+import { trpcServer } from "@hono/trpc-server";
+import { createContext } from "@repo/trpc";
+import { apiRouter } from "./routers";
 
 const app = new Hono();
 
-app.get("/create-page", async (c) => {
-  const name = Math.random().toString(36).substring(2, 15);
-  const page = await database.page.create({
-    data: {
-      name,
-    },
-  });
-  return c.json(page);
+// Health check endpoint
+app.get("/health", (c) => {
+  return c.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.get("/get-pages", async (c) => {
-  const pages = await database.page.findMany();
-  return c.json(pages);
-});
+// Mount tRPC on /trpc
+app.use(
+  "/trpc/*",
+  trpcServer({
+    router: apiRouter,
+    createContext,
+  })
+);
+
 export default app;
