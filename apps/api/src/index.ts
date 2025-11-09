@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { trpcServer } from "@hono/trpc-server";
-import { createContext } from "./trpc/index.js";
-import { apiRouter } from "./routers/index.js";
+import { createContext } from "./trpc/index";
+import { apiRouter } from "./routers/index";
 import { serve } from "@hono/node-server";
 
 const app = new Hono();

@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
     "postinstall": "pnpm dlx prisma generate",
     "prebuild": "pnpm dlx prisma migrate deploy"
@@ -24,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@types/ws": "^8.18.1",
+    "tsc-alias": "^1.8.16",
     "bufferutil": "^4.0.9",
     "prisma": "6.18.0",
     "tsx": "^4.19.2",
