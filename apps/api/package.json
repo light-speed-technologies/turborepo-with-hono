@@ -2,9 +2,10 @@
   "name": "api",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "postinstall": "pnpm dlx prisma generate",
-    "prebuild": "pnpm dlx prisma generate",
-    "postbuild": "pnpm dlx prisma generate"
+    "prebuild": "pnpm dlx prisma generate"
   },
   "dependencies": {
     "hono": "^4.8.10",
