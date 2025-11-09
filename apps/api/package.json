@@ -1,6 +1,12 @@
 {
   "name": "api",
   "type": "module",
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc && tsc-alias",
@@ -19,15 +25,15 @@
     "@trpc/server": "^11.0.0-rc.632",
     "undici": "^7.16.0",
     "ws": "^8.18.3",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "tsc-alias": "^1.8.16",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@types/ws": "^8.18.1",
-    "tsc-alias": "^1.8.16",
     "bufferutil": "^4.0.9",
     "prisma": "6.18.0",
-    "tsx": "^4.19.2",
-    "typescript": "^5.8.3"
+    "tsx": "^4.19.2"
   }
 }

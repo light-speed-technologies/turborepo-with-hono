@@ -60,6 +60,12 @@ importers:
       hono:
         specifier: ^4.8.10
         version: 4.8.10
+      tsc-alias:
+        specifier: ^1.8.16
+        version: 1.8.16
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
       undici:
         specifier: ^7.16.0
         version: 7.16.0
@@ -79,15 +85,9 @@ importers:
       prisma:
         specifier: 6.18.0
         version: 6.18.0(typescript@5.8.3)
-      tsc-alias:
-        specifier: ^1.8.16
-        version: 1.8.16
       tsx:
         specifier: ^4.19.2
         version: 4.20.6
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
 
   apps/web:
     dependencies:
