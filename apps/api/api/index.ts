@@ -1,7 +1,0 @@
-// This is Vercel's Serverless Function entrypoint
-
-// Assume tsup has been run and the output is in dist/index.js
-// (This is required because vercel doesn't play well with internal npm packages, so we must manually bundle)
-// @ts-ignore - Compiled output doesn't have type declarations
-
-export { default } from "../dist/index.js";
