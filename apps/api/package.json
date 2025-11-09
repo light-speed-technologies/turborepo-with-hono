@@ -1,8 +1,9 @@
 {
   "name": "api",
+  "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm --clean",
     "start": "node dist/index.js",
     "postinstall": "pnpm dlx prisma generate",
     "prebuild": "pnpm dlx prisma migrate deploy"
@@ -26,6 +27,7 @@
     "bufferutil": "^4.0.9",
     "prisma": "6.18.0",
     "srvx": "^0.8.7",
+    "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "typescript": "^5.8.3"
   }
