@@ -1,11 +1,9 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import type { Context } from "./context";
-import superjson from "superjson";
 import { ZodError } from "zod";
 import { createAuthMiddleware } from "../middleware/auth";
 
 export const t = initTRPC.context<Context>().create({
-  transformer: superjson,
   errorFormatter({ shape, error }) {
     // Check if error has custom message property
     if (error.message && !error.message.startsWith("[")) {
