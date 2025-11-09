@@ -1,7 +1,7 @@
 import { neonConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import ws from "ws";
-import { PrismaClient } from "../generated/client";
+import { PrismaClient } from "../generated/client/index.js";
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
@@ -16,4 +16,4 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // Export all Prisma types
-export * from "../generated/client";
+export * from "../generated/client/index.js";
