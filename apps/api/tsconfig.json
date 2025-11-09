@@ -8,12 +8,12 @@
     "types": ["node"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "rootDir": "./src", // ← Keep this! It prevents dist/src/
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
   },
-  "tsc-alias": {
-    "resolveFullPaths": true,
-    "verbose": true,
-    "resolveFullExtensions": "js"
-  },
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
