@@ -7,10 +7,12 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "db:generate": "cd apps/api && pnpm prisma generate",
-    "db:push": "cd apps/api && pnpm prisma db push",
-    "db:migrate": "cd apps/api && pnpm prisma migrate dev",
-    "db:studio": "cd apps/api && pnpm prisma studio"
+    "db:generate": "cd apps/api && pnpm dlx prisma generate",
+    "db:push": "cd apps/api && pnpm dlx prisma db push",
+    "db:migrate": "cd apps/api && pnpm dlx prisma migrate dev",
+    "db:studio": "cd apps/api && pnpm dlx prisma studio",
+    "db:deploy": "cd apps/api && pnpm dlx prisma migrate deploy",
+    "db:reset": "cd apps/api && pnpm dlx prisma migrate reset"
   },
   "devDependencies": {
     "prettier": "^3.6.2",

@@ -4,8 +4,8 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "postinstall": "prisma generate",
-    "prebuild": "pnpm dlx prisma generate"
+    "postinstall": "pnpm dlx prisma generate",
+    "prebuild": "pnpm dlx prisma migrate deploy"
   },
   "dependencies": {
     "hono": "^4.8.10",
