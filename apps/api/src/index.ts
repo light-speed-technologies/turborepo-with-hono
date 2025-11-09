@@ -4,8 +4,7 @@ import { database } from "./db";
 const app = new Hono();
 
 app.get("/create-page", async (c) => {
-  const body = await c.req.json();
-  const { name } = body;
+  const name = Math.random().toString(36).substring(2, 15);
   const page = await database.page.create({
     data: {
       name,
