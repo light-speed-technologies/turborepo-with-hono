@@ -1,7 +1,8 @@
 import { Hono } from "hono";
 import { trpcServer } from "@hono/trpc-server";
-import { createContext } from "@repo/trpc";
+import { createContext } from "./trpc";
 import { apiRouter } from "./routers";
+import { serve } from "@hono/node-server";
 
 const app = new Hono();
 
@@ -17,6 +18,16 @@ app.use(
     router: apiRouter,
     createContext,
   })
+);
+
+serve(
+  {
+    fetch: app.fetch,
+    port: 3000,
+  },
+  (info: any) => {
+    console.log(`Server running successfully on port ${info.port}`);
+  }
 );
 
 export default app;

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { router, publicProcedure } from "@repo/trpc";
+import { router, publicProcedure } from "../trpc";
 import { database } from "../db";
 
 /**
@@ -48,4 +48,3 @@ export const pageRouter = router({
       return page;
     }),
 });
-

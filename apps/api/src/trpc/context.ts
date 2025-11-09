@@ -12,3 +12,4 @@ export function createContext(opts: FetchCreateContextFnOptions) {
 }
 
 export type Context = Awaited<ReturnType<typeof createContext>>;
+
