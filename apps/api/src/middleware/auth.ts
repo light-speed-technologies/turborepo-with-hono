@@ -1,7 +1,7 @@
 import { TRPCError } from "@trpc/server";
-import type { Context } from "../trpc/context";
+import type { Context } from "../trpc/context.js";
 import { Role } from "@karina/shared/enums";
-import type { t as TRPCInstance } from "../trpc";
+import type { t as TRPCInstance } from "../trpc/index.js";
 
 // Factory functions to create middleware
 export function createAuthMiddleware(t: typeof TRPCInstance) {

@@ -1,22 +1,16 @@
 import { defineConfig } from "tsup";
+import { inferInternalPackages } from "./build.js";
 
 export default defineConfig({
   entry: ["src/index.ts"],
-  format: ["esm"],
+  outExtension: () => ({ js: `.js` }),
+  format: "esm",
   target: "node22",
   outDir: "dist",
   clean: true,
+  dts: true,
   sourcemap: true,
   minify: false,
   bundle: true,
-  external: [
-    // Don't bundle Prisma client
-    "@prisma/client",
-    ".prisma/client",
-  ],
-  noExternal: [
-    // Bundle everything else including problematic ESM packages
-    /^(?!@prisma|\.prisma).*/,
-  ],
+  noExternal: inferInternalPackages(process.cwd()),
 });
-

@@ -1,8 +1,8 @@
-import { database } from "../../db";
+import { database } from "../../db.js";
 import { banUserSchema } from "@karina/shared/schemas";
-import { auth } from "../../auth";
+import { auth } from "../../auth/index.js";
 import { Role } from "@karina/shared/enums";
-import { protectedProcedure } from "../../trpc";
+import { protectedProcedure } from "../../trpc/index.js";
 
 export const ban = protectedProcedure
   .input(banUserSchema)

@@ -1,7 +1,7 @@
-import { protectedProcedure } from "../../trpc";
-import { database } from "../../db";
+import { protectedProcedure } from "../../trpc/index.js";
+import { database } from "../../db.js";
 import { unbanUserSchema } from "@karina/shared/schemas";
-import { auth } from "../../auth";
+import { auth } from "../../auth/index.js";
 
 export const unban = protectedProcedure
   .input(unbanUserSchema)

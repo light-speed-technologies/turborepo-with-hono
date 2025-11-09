@@ -1,7 +1,7 @@
 import { initTRPC, TRPCError } from "@trpc/server";
-import type { Context } from "./context";
+import type { Context } from "./context.js";
 import { ZodError } from "zod";
-import { createAuthMiddleware } from "../middleware/auth";
+import { createAuthMiddleware } from "../middleware/auth.js";
 
 export const t = initTRPC.context<Context>().create({
   errorFormatter({ shape, error }) {
@@ -51,5 +51,5 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
 export const adminProcedure = t.procedure.use(requireAdmin);
 
 // Export types
-export type { Context } from "./context";
-export { createContext } from "./context";
+export type { Context } from "./context.js";
+export { createContext } from "./context.js";

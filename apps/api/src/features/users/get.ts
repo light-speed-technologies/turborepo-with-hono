@@ -1,5 +1,5 @@
-import { protectedProcedure } from "../../trpc";
-import { database } from "../../db";
+import { protectedProcedure } from "../../trpc/index.js";
+import { database } from "../../db.js";
 import { userSchema } from "@karina/shared/schemas";
 import { z } from "zod";
 

@@ -1,8 +1,8 @@
-import { database } from "../../db";
+import { database } from "../../db.js";
 import { deleteUserSchema } from "@karina/shared/schemas";
 import { Role } from "@karina/shared/enums";
-import { auth } from "../../auth";
-import { protectedProcedure } from "../../trpc";
+import { auth } from "../../auth/index.js";
+import { protectedProcedure } from "../../trpc/index.js";
 
 export const deleteUser = protectedProcedure
   .input(deleteUserSchema)

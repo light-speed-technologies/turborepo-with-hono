@@ -1,5 +1,5 @@
-import { router } from "../trpc";
-import { userRouter } from "./user-router";
+import { router } from "../trpc/index.js";
+import { userRouter } from "./user-router.js";
 
 /**
  * Main API router that combines all sub-routers
