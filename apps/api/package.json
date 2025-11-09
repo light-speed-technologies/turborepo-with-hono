@@ -4,23 +4,21 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "postinstall": "pnpm dlx prisma generate",
+    "postinstall": "prisma generate",
     "prebuild": "pnpm dlx prisma generate"
   },
   "dependencies": {
     "hono": "^4.8.10",
     "@hono/trpc-server": "^0.3.2",
     "@hono/node-server": "^1.14.4",
-    "@repo/constants": "workspace:*",
+    "@karina/shared": "workspace:*",
     "@neondatabase/serverless": "^1.0.2",
     "@prisma/adapter-neon": "6.18.0",
     "@prisma/client": "6.18.0",
-    "@t3-oss/env-nextjs": "^0.13.8",
     "@trpc/server": "^11.0.0-rc.632",
-    "server-only": "^0.0.1",
     "undici": "^7.16.0",
     "ws": "^8.18.3",
-    "zod": "^4.1.12"
+    "dotenv": "^16.4.7"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",

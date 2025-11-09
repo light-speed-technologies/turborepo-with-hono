@@ -1,13 +1,21 @@
 {
-  "name": "@repo/constants",
+  "name": "@karina/shared",
   "exports": {
     ".": {
-      "development": "./src/constants.ts",
-      "default": "./dist/constants.js"
+      "development": "./src/shared.ts",
+      "default": "./dist/shared.js"
     },
     "./schemas": {
       "development": "./src/schemas/index.ts",
       "default": "./dist/schemas/index.js"
+    },
+    "./types": {
+      "development": "./src/types/index.ts",
+      "default": "./dist/types/index.js"
+    },
+    "./enums": {
+      "development": "./src/enums/index.ts",
+      "default": "./dist/enums/index.js"
     }
   },
   "scripts": {
@@ -17,6 +25,6 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@karina/typescript-config": "workspace:*"
   }
 }

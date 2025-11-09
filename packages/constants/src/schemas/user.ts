@@ -1,53 +1,68 @@
 import { z } from "zod";
+import { Role } from "../enums/roles";
+import { filterPaginationSchema } from "./pagination";
 
-/**
- * User list filters schema
- * Used for filtering and paginating user lists
- */
-export const userListFiltersSchema = z.object({
-  search: z.string().optional(),
-  page: z.number().min(1).optional(),
-  pageSize: z.number().min(1).max(100).optional(),
-  sortBy: z.enum(["createdAt", "email", "name"]).optional(),
-  sortOrder: z.enum(["asc", "desc"]).optional(),
+// User schema for API responses
+export const userSchema = z.object({
+  id: z.string(),
+  name: z.string().nullable().optional(),
+  email: z.email(),
+  emailVerified: z.boolean().optional(),
+  image: z.string().nullable().optional(),
+  role: z.enum(Role).optional(),
+  banned: z.boolean().optional(),
+  banReason: z.string().nullable().optional(),
+  banExpires: z.date().nullable().optional(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 });
 
-/**
- * Get user by ID schema
- */
-export const getUserSchema = z.object({
-  userId: z.number(),
+// User profile update schema
+export const userUpdateProfileSchema = z.object({
+  name: z.string().min(1).max(100).optional(),
+  image: z.string().url().optional(),
 });
 
-/**
- * Create user schema
- */
+// User list filters schema
+export const userListFiltersSchema = filterPaginationSchema.extend({
+  role: z.enum(Role).optional(),
+  status: z.enum(["active", "banned", "all"]).optional(),
+  emailVerified: z.boolean().optional(),
+});
+
+// User mutation schemas (admin only)
 export const createUserSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
+  email: z.string().email("Adresse email invalide"),
+  password: z
+    .string()
+    .min(8, "Le mot de passe doit contenir au moins 8 caractères")
+    .max(100),
+  name: z.string().min(1, "Le nom est requis").max(100),
+  role: z.enum(Role),
 });
 
-/**
- * Update user schema
- */
-export const updateUserSchema = z.object({
-  userId: z.number(),
-  name: z.string().min(1).optional(),
-  email: z.string().email().optional(),
+export const banUserSchema = z.object({
+  userId: z.string(),
+  banReason: z
+    .string()
+    .min(1, "La raison du bannissement est requise")
+    .max(500, "La raison du bannissement ne peut pas dépasser 500 caractères"),
+  banExpires: z.date().optional().nullable(),
 });
 
-/**
- * Delete user schema
- */
+export const unbanUserSchema = z.object({
+  userId: z.string(),
+});
+
+export const updateUserRoleSchema = z.object({
+  userId: z.string(),
+  role: z.enum(Role),
+});
+
 export const deleteUserSchema = z.object({
-  userId: z.number(),
+  userId: z.string(),
 });
 
-/**
- * Type exports for TypeScript inference
- */
-export type UserListFilters = z.infer<typeof userListFiltersSchema>;
-export type GetUser = z.infer<typeof getUserSchema>;
-export type CreateUser = z.infer<typeof createUserSchema>;
-export type UpdateUser = z.infer<typeof updateUserSchema>;
-export type DeleteUser = z.infer<typeof deleteUserSchema>;
+export const revokeUserSessionsSchema = z.object({
+  userId: z.string(),
+});

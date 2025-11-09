@@ -7,7 +7,7 @@ import { serve } from "@hono/node-server";
 const app = new Hono();
 
 // Health check endpoint
-app.get("/health", (c) => {
+app.get("/health-check", (c) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
@@ -16,9 +16,15 @@ app.use(
   "/trpc/*",
   trpcServer({
     router: apiRouter,
-    createContext,
+    createContext: (_opts, context) => {
+      return createContext({ context });
+    },
   })
 );
+
+app.get("/", (c) => {
+  return c.text("OK", 200);
+});
 
 serve(
   {

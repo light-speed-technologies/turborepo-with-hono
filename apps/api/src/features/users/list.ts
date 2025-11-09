@@ -1,11 +1,12 @@
-import { publicProcedure } from "../../trpc";
+import { protectedProcedure } from "../../trpc";
 import { database } from "../../db";
-import { userListFiltersSchema } from "@repo/constants/schemas";
+import {
+  userSchema,
+  userListFiltersSchema,
+  createPaginatedResponse,
+} from "@karina/shared/schemas";
 
-/**
- * List users with optional filters and pagination
- */
-export const list = publicProcedure
+export const list = protectedProcedure
   .input(userListFiltersSchema)
   .query(async ({ input }) => {
     // Build where clause based on filters
@@ -19,10 +20,25 @@ export const list = publicProcedure
       ];
     }
 
-    // Pagination params with defaults
-    const page = input.page ?? 1;
-    const pageSize = input.pageSize ?? 10;
-    const skip = (page - 1) * pageSize;
+    // Role filter
+    if (input.role) {
+      where.role = input.role;
+    }
+
+    // Status filter
+    if (input.status && input.status !== "all") {
+      where.banned = input.status === "banned";
+    }
+
+    // Email verified filter
+    if (input.emailVerified !== undefined) {
+      where.emailVerified = input.emailVerified;
+    }
+
+    // Pagination params (optional - if not provided, fetch all)
+    const page = input.page;
+    const pageSize = input.pageSize;
+    const skip = page && pageSize ? (page - 1) * pageSize : undefined;
 
     // Sorting
     const orderBy: any = {};
@@ -36,28 +52,34 @@ export const list = publicProcedure
     const [items, total] = await Promise.all([
       database.user.findMany({
         where,
-        skip,
-        take: pageSize,
+        ...(skip !== undefined ? { skip } : {}),
+        ...(pageSize ? { take: pageSize } : {}),
         orderBy,
       }),
       database.user.count({ where }),
     ]);
 
-    // Calculate pagination metadata
-    const totalPages = Math.ceil(total / pageSize);
-    const hasNextPage = page < totalPages;
-    const hasPreviousPage = page > 1;
+    // Shape output to contract
+    const shaped = items.map((u) =>
+      userSchema.parse({
+        id: u.id,
+        name: u.name ?? null,
+        email: u.email,
+        emailVerified: u.emailVerified,
+        image: u.image ?? null,
+        role: u.role,
+        banned: u.banned,
+        banReason: u.banReason ?? null,
+        banExpires: u.banExpires ?? null,
+        createdAt: u.createdAt,
+        updatedAt: u.updatedAt,
+      })
+    );
 
-    return {
-      items,
-      pagination: {
-        total,
-        page,
-        pageSize,
-        totalPages,
-        hasNextPage,
-        hasPreviousPage,
-      },
-    };
+    return createPaginatedResponse(
+      shaped.map((s) => ({ ...s, test2: "test" })),
+      total,
+      page,
+      pageSize
+    );
   });
-

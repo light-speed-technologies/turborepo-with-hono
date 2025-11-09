@@ -1,21 +1,37 @@
-import { publicProcedure } from "../../trpc";
+import { protectedProcedure } from "../../trpc";
 import { database } from "../../db";
-import { getUserSchema } from "@repo/constants/schemas";
+import { userSchema } from "@karina/shared/schemas";
+import { z } from "zod";
 
-/**
- * Get user by ID
- */
-export const get = publicProcedure
+// Schema for get user by ID
+const getUserSchema = z.object({
+  userId: z.string(),
+});
+
+export const get = protectedProcedure
   .input(getUserSchema)
   .query(async ({ input }) => {
+    // Fetch user by ID
     const user = await database.user.findUnique({
       where: { id: input.userId },
     });
 
     if (!user) {
-      throw new Error("User not found");
+      throw new Error("Utilisateur non trouvé");
     }
 
-    return user;
+    // Shape output to contract
+    return userSchema.parse({
+      id: user.id,
+      name: user.name ?? null,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      image: user.image ?? null,
+      role: user.role,
+      banned: user.banned,
+      banReason: user.banReason ?? null,
+      banExpires: user.banExpires ?? null,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    });
   });
-
